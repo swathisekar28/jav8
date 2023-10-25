@@ -1,0 +1,190 @@
+// bus reservation
+import java.util.*;
+class BusReservation
+{
+ String name;
+ String typeofreservation;
+  int noofseats;
+  int n=5;
+ public void getdetails()
+{
+   Scanner ob= new Scanner(System.in);
+   System.out.println("enter your name : ");
+   name= ob.next();
+   System.out.println("enter the type of reservation :");
+   typeofreservation=ob.next();
+   System.out.println("enter the number of seats :");
+   noofseats=ob.nextInt();
+ if (typeofreservation!="booking")
+ {
+     SeatBooking();
+ }
+ else if( typeofreservation!="cancel")
+ {
+   SeatCanceling();  
+ }
+}
+  public void SeatBooking ()
+  {
+     int availableseat = 200;
+    if (noofseats >= availableseat)
+      {
+System.out.println ("seat is not available");
+      }
+    else
+      {
+System.out.println ("seat is booked");
+      }
+      System.out.println("thankyou visit again");
+      }
+  public void SeatCanceling ()
+  {
+    System.out.println ("cancellation request is send");
+    int hrs;
+    Scanner s = new Scanner (System.in);
+        System.out.println("enter the number of hours");
+    hrs=s.nextInt();
+    System.out.println ("refund policies");
+    if (hrs <= 48)
+      {
+System.out.println ("25% refund is credited to your account");
+      }
+    else if (hrs<=48 && hrs>=24)
+      {
+System.out.println ("50% refund is credited to your account");
+      }
+    else if (hrs<=24 && hrs>= 10)
+      {
+System.out.println ("75% refund is credited to your account");
+      }
+    else
+      {
+System.out.println ("refund is not provided");
+      }
+  }
+}
+class Person1 extends Thread
+{
+  BusReservation br;
+    Person1 (BusReservation br)
+  {
+    this.br = br;
+  }
+  public void run ()
+  {
+    br.SeatBooking ();
+  }
+}
+
+class Person2 extends Thread
+{
+  BusReservation br;
+    Person2 (BusReservation br)
+  {
+    this.br = br;
+  }
+  public void run ()
+  {
+    br.SeatCanceling ();
+  }
+}
+
+public class Main
+{
+  public static void main (String[]args)
+  {
+    BusReservation obj= new BusReservation();
+    int n,i;
+    Scanner sc =new Scanner(System.in);
+    System.out.println("enter the passenger list");
+    n=sc.nextInt();
+    for(i=1;i<=n;i++)
+    {
+      System.out.println("welcome to Bus ticket reservation");
+      obj.getdetails();
+    }
+    Person1 p1 =new Person1(obj);
+    Person2 p2 =new Person2(obj);
+    p1.start();
+    p2.start();
+}
+}
+// print odd or even
+/*class OddOrEven
+{
+    synchronized void Oddnumbers()
+    {
+     System.out.println("thread printing odd number...");
+      for(int i=1;i<=30;i++)
+        {
+              try
+            {
+             Thread.sleep(1000);
+            } catch(InterruptedException e)
+            {
+                System.out.println(e);
+            }
+            if(i%2!=0)
+            {
+               System.out.println(i);
+            }
+        }
+         System.out.println("odd numbers are printed");    
+    }
+    synchronized void Evennumbers()
+    {
+    System.out.println("thread printing even number...");
+       for(int i=1;i<=30;i++)
+    {
+    try
+    {
+       Thread.sleep(1000);
+    }
+    catch(InterruptedException e)
+    {
+        System.out.println(e);
+    }
+        if(i%2==0)
+    {
+      System.out.println(i);  
+    }
+   }
+      System.out.println("even numbers are printed");
+    }  
+   
+}
+class Odd extends Thread
+{
+    OddOrEven oe;
+    Odd( OddOrEven oe)
+    {
+        this.oe=oe;
+    }
+    public void run()
+    {
+        oe.Oddnumbers();
+    }
+}
+class Even extends Thread
+{
+    OddOrEven oe;
+    Even( OddOrEven oe)
+    {
+        this.oe=oe;
+    }
+    public void run()
+    {
+        oe.Evennumbers();
+    }
+}
+public class Main
+{
+public static void main (String[] args)
+{
+   OddOrEven obj = new OddOrEven();
+   Odd o =new Odd(obj);
+   Even e = new Even(obj);
+    o.start();
+    e.start();
+    }
+}*/
